@@ -1,6 +1,6 @@
 import os
 import sys
-
+import pickle
 import numpy as np
 import dill
 import yaml
@@ -32,8 +32,7 @@ def write_yaml_file(file_path: str, content: object, replace: bool = False) -> N
         raise USvisaException(e, sys) from e
     
 
-
-
+"""
 def load_object(file_path: str) -> object:
     logging.info("Entered the load_object method of utils")
 
@@ -48,8 +47,14 @@ def load_object(file_path: str) -> object:
 
     except Exception as e:
         raise USvisaException(e, sys) from e
-    
+""" 
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
 
+    except Exception as e:
+        raise USvisaException(e, sys)
 
 def save_numpy_array_data(file_path: str, array: np.array):
     """
@@ -81,8 +86,7 @@ def load_numpy_array_data(file_path: str) -> np.array:
         raise USvisaException(e, sys) from e
 
 
-
-
+"""
 def save_object(file_path: str, obj: object) -> None:
     logging.info("Entered the save_object method of utils")
 
@@ -95,7 +99,19 @@ def save_object(file_path: str, obj: object) -> None:
 
     except Exception as e:
         raise USvisaException(e, sys) from e
+""" 
 
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+
+        os.makedirs(dir_path, exist_ok=True)
+
+        with open(file_path, "wb") as file_obj:
+            pickle.dump(obj, file_obj)
+
+    except Exception as e:
+        raise USvisaException(e, sys)
 
 
 def drop_columns(df: DataFrame, cols: list)-> DataFrame:

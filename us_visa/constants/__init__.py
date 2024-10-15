@@ -16,11 +16,10 @@ TEST_FILE_NAME: str = "test.csv"
 
 FILE_NAME: str = "usvisa.csv"
 MODEL_FILE_NAME = "model.pkl"
-
+PREPROCSSING_OBJECT_FILE_NAME = "preprocessor.pkl"
 
 TARGET_COLUMN = "case_status"
 CURRENT_YEAR = date.today().year
-PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
 
 """
@@ -54,3 +53,6 @@ MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
 MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
 MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join("config", "model.yaml")
+
+APP_HOST = "0.0.0.0"
+APP_PORT = 8080

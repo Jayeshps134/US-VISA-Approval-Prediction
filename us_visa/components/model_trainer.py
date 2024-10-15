@@ -1,5 +1,8 @@
+import os
 import sys
 from typing import Tuple
+import pickle
+from joblib import dump, load
 
 import numpy as np
 import pandas as pd
@@ -24,6 +27,7 @@ class ModelTrainer:
         """
         self.data_transformation_artifact = data_transformation_artifact
         self.model_trainer_config = model_trainer_config
+        self.trained_model_file_path=os.path.join("config","model.pkl")
 
     def get_model_object_and_report(self, train: np.array, test: np.array) -> Tuple[object, object]:
         """
@@ -85,6 +89,7 @@ class ModelTrainer:
             logging.info("Created usvisa model object with preprocessor and model")
             logging.info("Created best model file path.")
             save_object(self.model_trainer_config.trained_model_file_path, usvisa_model)
+            save_object(self.trained_model_file_path, usvisa_model)
 
             model_trainer_artifact = ModelTrainerArtifact(
                 trained_model_file_path=self.model_trainer_config.trained_model_file_path,

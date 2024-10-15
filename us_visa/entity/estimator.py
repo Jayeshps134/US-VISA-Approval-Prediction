@@ -6,6 +6,7 @@ from sklearn.pipeline import Pipeline
 from us_visa.exception import USvisaException
 from us_visa.logger import logging
 
+
 class USvisaModel:
     def __init__(self, preprocessing_object: Pipeline, trained_model_object: object):
         """

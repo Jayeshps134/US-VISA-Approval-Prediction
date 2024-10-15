@@ -1,5 +1,6 @@
+import os
 import sys
-
+import pickle
 import numpy as np
 import pandas as pd
 from imblearn.combine import SMOTEENN
@@ -27,6 +28,7 @@ class DataTransformation:
             self.data_transformation_config = data_transformation_config
             self.data_validation_artifact = data_validation_artifact
             self._schema_config = read_yaml_file(file_path=SCHEMA_FILE_PATH)
+            self.preprocessor_obj_file_path=os.path.join('config',"preprocessor.pkl")
         except Exception as e:
             raise USvisaException(e, sys)
 
@@ -141,7 +143,7 @@ class DataTransformation:
                 logging.info(
                     "Applying preprocessing object on training dataframe and testing dataframe"
                 )
-
+                
                 input_feature_train_arr = preprocessor.fit_transform(input_feature_train_df)
 
                 logging.info(
@@ -181,6 +183,8 @@ class DataTransformation:
                 ]
 
                 save_object(self.data_transformation_config.transformed_object_file_path, preprocessor)
+                save_object(self.preprocessor_obj_file_path, preprocessor)
+        
                 save_numpy_array_data(self.data_transformation_config.transformed_train_file_path, array=train_arr)
                 save_numpy_array_data(self.data_transformation_config.transformed_test_file_path, array=test_arr)
 
